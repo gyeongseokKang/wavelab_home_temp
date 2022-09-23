@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from '@mui/material/Dialog/Dialog';
 
 import styled from '@emotion/styled';
@@ -10,6 +11,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { getDataFromGoogleSheet } from '@/api/getDataFromGoogleSheet';
 import { FlexBox } from '@/components/styled';
 
 const Title = () => {
@@ -36,58 +38,54 @@ const Title = () => {
         Type SomeThing
       </StyledSubTitle>
       <StyledDialog onClose={handleClose} open={open}>
-        <>
-          <StyledSwiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={3}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: false,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Pagination]}
-            //   className="mySwiper"
-          >
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-            </StyledSwiperSlide>
-            <StyledSwiperSlide>
-              <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-            </StyledSwiperSlide>
-          </StyledSwiper>
-        </>
+        <OfficeSlider />
       </StyledDialog>
     </StyledTitleLayout>
   );
 };
 
 export default Title;
+
+const OfficeSlider = () => {
+  const [imageList, setImageList] = useState<string[] | undefined>(undefined);
+
+  useEffect(() => {
+    const loadOfficeImages = async () => {
+      const result = await getDataFromGoogleSheet({ sheetName: 'office' });
+      setImageList(result.imageList);
+    };
+    loadOfficeImages();
+  }, []);
+
+  if (imageList === undefined) {
+    return <CircularProgress sx={{ padding: '1rem', color: 'black' }} />;
+  }
+  return (
+    <StyledSwiper
+      effect={'coverflow'}
+      grabCursor={true}
+      centeredSlides={true}
+      slidesPerView={3}
+      coverflowEffect={{
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: false,
+      }}
+      pagination={true}
+      modules={[EffectCoverflow, Pagination]}
+    >
+      {imageList?.map((image) => {
+        return (
+          <StyledSwiperSlide key={image}>
+            <img src={image} />
+          </StyledSwiperSlide>
+        );
+      })}
+    </StyledSwiper>
+  );
+};
 
 const StyledTitleLayout = styled(FlexBox)`
   padding-inline: 5vw;
@@ -104,7 +102,11 @@ const StyledSubTitle = styled.span`
 `;
 
 const StyledDialog = styled(Dialog)`
+  .MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
   .MuiPaper-root {
+    background-color: unset;
     max-width: unset;
     box-shadow: none;
   }
@@ -120,7 +122,7 @@ const StyledOpenDialogButton = styled.span`
 `;
 
 const StyledSwiper = styled(Swiper)`
-  background-color: gray;
+  background-color: grey;
   .swiper-wrapper {
     width: 1050px;
   }

@@ -4,6 +4,7 @@ import MuiToolbar from '@mui/material/Toolbar';
 
 import styled from '@emotion/styled';
 
+import { getDataFromGoogleSheet } from '@/api/getDataFromGoogleSheet';
 import { FlexBox } from '@/components/styled';
 import useCardType from '@/store/cardType';
 
@@ -22,6 +23,7 @@ function Header() {
               style={{ fontWeight: cardType === 'genre' ? '700' : '300' }}
               onClick={() => {
                 handleTypeClick('genre');
+                getDataFromGoogleSheet({ sheetName: 'office' });
               }}
             >
               GENRE
