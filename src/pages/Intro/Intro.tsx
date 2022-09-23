@@ -1,18 +1,21 @@
+import styled from '@emotion/styled';
+
 import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
-import useOrientation from '@/hooks/useOrientation';
+import Title from '@/sections/Body/Title';
 
 function Intro() {
-  const isPortrait = useOrientation();
-
   return (
-    <>
+    <PageLayout>
       <Meta title="Intro" />
-      <FullSizeCenteredFlexBox flexDirection={isPortrait ? 'column' : 'row'}>
-        <div>dddd</div>
-      </FullSizeCenteredFlexBox>
-    </>
+      <Title />
+    </PageLayout>
   );
 }
 
 export default Intro;
+
+const PageLayout = styled.div`
+  max-width: 1440px;
+  margin: auto;
+  padding-top: 10rem;
+`;

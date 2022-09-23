@@ -5,16 +5,42 @@ import MuiToolbar from '@mui/material/Toolbar';
 import styled from '@emotion/styled';
 
 import { FlexBox } from '@/components/styled';
+import useCardType from '@/store/cardType';
 
 function Header() {
+  const { cardType, setCardType } = useCardType();
+
+  const handleTypeClick = (type: 'genre' | 'years') => {
+    setCardType(type);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <StyledAppBar color="transparent" elevation={1} position="static">
         <StyledToolbar sx={{ justifyContent: 'space-between' }}>
-          <FlexBox sx={{ alignItems: 'center' }}>
-            <img src="/logo/logo.png" width="200" height="50" alt="testA" />
-          </FlexBox>
-          <StyledA href="http://wavelab.co.kr/">Login</StyledA>
+          <HeaderItem alignItems={'center'} gap={'2rem'}>
+            <CardTypeButton
+              style={{ fontWeight: cardType === 'genre' ? '700' : '300' }}
+              onClick={() => {
+                handleTypeClick('genre');
+              }}
+            >
+              GENRE
+            </CardTypeButton>
+            <CardTypeButton
+              style={{ fontWeight: cardType === 'years' ? '700' : '300' }}
+              onClick={() => {
+                handleTypeClick('years');
+              }}
+            >
+              YEARS
+            </CardTypeButton>
+          </HeaderItem>
+          <HeaderItem alignItems={'center'}>
+            <img src="/logo/logo.png" width="200" height="50" alt="wavelab logo" />
+          </HeaderItem>
+          <HeaderItem alignItems={'center'} justifyContent={'flex-end'}>
+            <StyledA href="http://wavelab.co.kr/">Login</StyledA>
+          </HeaderItem>
         </StyledToolbar>
       </StyledAppBar>
     </Box>
@@ -37,14 +63,22 @@ const StyledToolbar = styled(MuiToolbar)`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin: auto;
-  width: 80vw;
+  width: 100vw;
   max-width: 1440px;
   display: flex;
   justify-content: space-between;
+`;
+
+const HeaderItem = styled(FlexBox)`
+  min-width: 10rem;
 `;
 
 const StyledA = styled.a`
   text-decoration: none;
   color: black;
   font-size: 1.25rem;
+`;
+
+const CardTypeButton = styled.span`
+  cursor: pointer;
 `;

@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { withErrorHandler } from '@/error-handling';
@@ -8,12 +7,12 @@ import Header from '@/sections/Header';
 
 function App() {
   return (
-    <Fragment>
+    <>
       <BrowserRouter>
         <Header />
         <Pages />
       </BrowserRouter>
-    </Fragment>
+    </>
   );
 }
 
