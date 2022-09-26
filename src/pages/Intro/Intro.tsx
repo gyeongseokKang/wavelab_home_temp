@@ -21,5 +21,8 @@ export default Intro;
 const PageLayout = styled.div`
   max-width: 1440px;
   margin: auto;
-  padding-top: 10rem;
+  min-height: 300px;
+  padding-top: 50px;
+  display: flex;
+  align-items: center;
 `;

@@ -1,3 +1,4 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import MuiToolbar from '@mui/material/Toolbar';
@@ -20,7 +21,7 @@ function Header() {
         <StyledToolbar sx={{ justifyContent: 'space-between' }}>
           <HeaderItem alignItems={'center'} gap={'2rem'}>
             <CardTypeButton
-              style={{ fontWeight: cardType === 'genre' ? '700' : '300' }}
+              style={{ fontWeight: cardType === 'genre' ? '500' : '300' }}
               onClick={() => {
                 handleTypeClick('genre');
                 getDataFromGoogleSheet({ sheetName: 'office' });
@@ -29,7 +30,7 @@ function Header() {
               GENRE
             </CardTypeButton>
             <CardTypeButton
-              style={{ fontWeight: cardType === 'years' ? '700' : '300' }}
+              style={{ fontWeight: cardType === 'years' ? '500' : '300' }}
               onClick={() => {
                 handleTypeClick('years');
               }}
@@ -40,8 +41,9 @@ function Header() {
           <HeaderItem alignItems={'center'}>
             <img src="/logo/logo.png" width="200" height="50" alt="wavelab logo" />
           </HeaderItem>
-          <HeaderItem alignItems={'center'} justifyContent={'flex-end'}>
-            <StyledA href="http://wavelab.co.kr/">Login</StyledA>
+          <HeaderItem alignItems={'center'} justifyContent={'flex-end'} gap={'5px'}>
+            <StyledA href="http://wavelab.co.kr/">SERVER</StyledA>
+            <ArrowForwardIcon fontSize="small" />
           </HeaderItem>
         </StyledToolbar>
       </StyledAppBar>
@@ -73,12 +75,13 @@ const StyledToolbar = styled(MuiToolbar)`
 
 const HeaderItem = styled(FlexBox)`
   min-width: 10rem;
+  font-size: 18px;
 `;
 
 const StyledA = styled.a`
   text-decoration: none;
   color: black;
-  font-size: 1.25rem;
+  cursor: pointer;
 `;
 
 const CardTypeButton = styled.span`

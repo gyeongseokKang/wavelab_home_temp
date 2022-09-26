@@ -30,13 +30,12 @@ const Title = () => {
       <StyledTitle>Wavelab audio post production</StyledTitle>
       <StyledTitle>Sample text Title Swear Display Light_42/60pt</StyledTitle>
       <StyledSubTitle>
-        Type Something Type Something Type Something Type Something Type Something
-      </StyledSubTitle>
-      <StyledSubTitle>
-        Wavelab audio post production
+        Type Something Type Something Type Something Type Something Type Something <br></br>Wavelab
+        audio post production
         <StyledOpenDialogButton onClick={openNewOfficeDialog}> New Window </StyledOpenDialogButton>
         Type SomeThing
       </StyledSubTitle>
+
       <StyledDialog onClose={handleClose} open={open}>
         <OfficeSlider />
       </StyledDialog>
@@ -92,13 +91,16 @@ const StyledTitleLayout = styled(FlexBox)`
 `;
 
 const StyledTitle = styled.span`
-  font-size: 2.5rem;
+  font-size: 42px;
   font-family: swear-display;
   font-weight: 300;
+  letter-spacing: -1.5px;
+  line-height: 0.9;
 `;
 
 const StyledSubTitle = styled.span`
-  font-size: 1.25rem;
+  font-size: 18px;
+  color: #313131;
 `;
 
 const StyledDialog = styled(Dialog)`

@@ -178,21 +178,25 @@ const Card = ({ cardItem }: { cardItem: CardItem }) => {
 };
 
 const StyleCard = styled.div`
-  width: 200px;
-  height: 300px;
-  border: 1px solid gray;
+  width: max(18vw, 320px);
+  height: 392px;
+  box-shadow: 1px 0 0 0 #888, 0 1px 0 0 #888, 1px 1px 0 0 #888, 1px 0 0 0 #888 inset,
+    0 1px 0 0 #888 inset;
+  border-collapse: separate;
   background-size: cover;
   padding: 1.75rem;
-  min-width: 18vw;
+  max-width: 320px;
   &:not(:hover) {
     background-image: unset !important;
   }
+  transition: all 0.3s;
 `;
 
 const StyledCardTitle = styled.div`
-  font-size: 1.25rem;
+  font-size: 20px;
 `;
 
 const StyledCardSubTitle = styled.div`
-  font-size: 1rem;
+  text-transform: uppercase;
+  font-size: 14px;
 `;
