@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 
 import Meta from '@/components/Meta';
+import List from '@/sections/Body/List';
 import Title from '@/sections/Body/Title';
 
 function Intro() {
   return (
-    <PageLayout>
+    <>
       <Meta title="Intro" />
-      <Title />
-    </PageLayout>
+      <PageLayout>
+        <Title />
+      </PageLayout>
+      <List />
+    </>
   );
 }
 

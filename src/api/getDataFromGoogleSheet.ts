@@ -27,3 +27,35 @@ export const getDataFromGoogleSheet = async ({ sheetName }: GetDataFromGoogleShe
     imageList: imageList,
   };
 };
+
+export interface CardItem {
+  title: string;
+  genre: 'movie' | 'ott' | 'music';
+  year: string;
+  poster_url: string;
+}
+
+export const getCardListDataFromGoogleSheet = async (): Promise<CardItem[] | undefined> => {
+  const result: CardItem[] = [];
+  const response = await axios.get(
+    `${GOOGLE_SHEET_BASE_URL}/${GOOGLE_SHEET_ID}/values/list?key=${GOOGLE_API_KEY}`,
+  );
+
+  if (response.status !== 200) {
+    return undefined;
+  }
+
+  response.data.values.forEach((columnList: any, index: number) => {
+    if (index !== 0) {
+      const item = {
+        title: columnList[0],
+        genre: columnList[1],
+        year: columnList[2],
+        poster_url: columnList[3],
+      };
+      result.push(item);
+    }
+  });
+
+  return result;
+};

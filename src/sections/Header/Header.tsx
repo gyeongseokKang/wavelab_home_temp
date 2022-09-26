@@ -65,7 +65,7 @@ const StyledToolbar = styled(MuiToolbar)`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin: auto;
-  width: 100vw;
+  width: 90%;
   max-width: 1440px;
   display: flex;
   justify-content: space-between;
