@@ -76,7 +76,6 @@ interface ListBodyrProp {
 const ListBody = ({ currentFilter }: ListBodyrProp) => {
   const { cardType } = useCardType();
 
-  console.log(cardType, currentFilter);
   const [cardItemList, setCardItemList] = useState<CardItem[] | undefined>(undefined);
   useEffect(() => {
     const loadOfficeImages = async () => {
@@ -154,7 +153,11 @@ const StyledListLayout = styled.div`
 
 const StyledListHeader = styled(FlexBox)`
   padding: 2rem;
-  position: relative;
+  /* position: relative; */
+  position: sticky;
+  background-color: white;
+  top: 100px;
+  z-index: 1;
 `;
 
 const StyledListBody = styled(FlexBox)`
@@ -163,7 +166,7 @@ const StyledListBody = styled(FlexBox)`
 
 const StyledListHeaderItem = styled.button<{ focuzed: boolean }>`
   text-decoration: ${({ focuzed }) => (focuzed ? 'underline 2px' : 'none')};
-  font-weight: ${({ focuzed }) => (focuzed ? '700' : 'none')};
+  font-weight: ${({ focuzed }) => (focuzed ? '600' : '200')};
 `;
 
 const Card = ({ cardItem }: { cardItem: CardItem }) => {
@@ -184,8 +187,8 @@ const StyleCard = styled.div<{ backgroundUrl: string }>`
   position: relative;
   aspect-ratio: 0.74;
   width: 100%;
-  box-shadow: 1px 0 0 0 #888, 0 1px 0 0 #888, 1px 1px 0 0 #888, 1px 0 0 0 #888 inset,
-    0 1px 0 0 #888 inset;
+  box-shadow: 1px 0 0 0 #797979, 0 1px 0 0 #797979, 1px 1px 0 0 #797979, 1px 0 0 0 #797979 inset,
+    0 1px 0 0 #797979 inset;
 
   max-width: 100vw;
 
