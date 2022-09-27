@@ -39,7 +39,7 @@ function Header() {
             </CardTypeButton>
           </HeaderItem>
           <HeaderItem alignItems={'center'}>
-            <img src="/logo/logo.png" width="200" height="50" alt="wavelab logo" />
+            <img src="/logo/logo.png" width="250" height="60" alt="wavelab logo" />
           </HeaderItem>
           <HeaderItem alignItems={'center'} justifyContent={'flex-end'} gap={'5px'}>
             <StyledA href="http://wavelab.co.kr/">SERVER</StyledA>
@@ -66,6 +66,7 @@ const StyledAppBar = styled(MuiAppBar)`
 const StyledToolbar = styled(MuiToolbar)`
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  min-height: 100px !important;
   margin: auto;
   width: 90%;
   max-width: 1440px;

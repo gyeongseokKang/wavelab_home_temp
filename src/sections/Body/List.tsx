@@ -30,7 +30,7 @@ const List = () => {
   }, [cardType]);
 
   return (
-    <StyledListLayout flexDirection={'column'} gap={'1rem'}>
+    <StyledListLayout>
       <ListHeader
         listByType={listByType}
         focusedItemIndex={focusedItemIndex}
@@ -121,10 +121,10 @@ const ListBody = ({ currentFilter }: ListBodyrProp) => {
   }, [cardType, currentFilter, cardItemList]);
 
   if (cardItemList === undefined) {
-    return <div>loading중</div>;
+    return <div></div>;
   }
   return (
-    <StyledListBody flexWrap={'wrap'} padding={'1rem'} justifyContent={'center'}>
+    <StyledListBody flexWrap={'wrap'} justifyContent={'flex-start'}>
       {filteredItemList?.map((cardItem) => {
         return <Card key={cardItem.title} cardItem={cardItem} />;
       })}
@@ -132,11 +132,11 @@ const ListBody = ({ currentFilter }: ListBodyrProp) => {
   );
 };
 
-const StyledListLayout = styled(FlexBox)`
+const StyledListLayout = styled.div`
   margin-top: 4rem;
   position: relative;
+  min-height: 100vh;
   background-color: #84879e;
-
   &::before {
     content: '';
     position: absolute;
@@ -168,35 +168,74 @@ const StyledListHeaderItem = styled.button<{ focuzed: boolean }>`
 
 const Card = ({ cardItem }: { cardItem: CardItem }) => {
   return (
-    <StyleCard key={cardItem.title} style={{ backgroundImage: `url(${cardItem.poster_url})` }}>
-      <StyledCardSubTitle>
-        {cardItem.genre}•{cardItem.year}
-      </StyledCardSubTitle>
-      <StyledCardTitle>{cardItem.title}</StyledCardTitle>
+    <StyleCard key={cardItem.title} backgroundUrl={`url(${cardItem.poster_url})`}>
+      <StyleCardContent>
+        <StyledCardSubTitle>
+          {cardItem.genre} • {cardItem.year}
+        </StyledCardSubTitle>
+        <StyledCardTitle>{cardItem.title}</StyledCardTitle>
+      </StyleCardContent>
+      <StyleBgCard backgroundUrl={`url(${cardItem.poster_url})`}></StyleBgCard>
     </StyleCard>
   );
 };
 
-const StyleCard = styled.div`
-  width: max(18vw, 320px);
-  height: 392px;
+const StyleCard = styled.div<{ backgroundUrl: string }>`
+  position: relative;
+  aspect-ratio: 0.74;
+  width: 100%;
   box-shadow: 1px 0 0 0 #888, 0 1px 0 0 #888, 1px 1px 0 0 #888, 1px 0 0 0 #888 inset,
     0 1px 0 0 #888 inset;
-  border-collapse: separate;
+
+  max-width: 100vw;
+
+  @media (min-width: 420px) {
+    max-width: 50vw;
+  }
+  @media (min-width: 720px) {
+    max-width: 33vw;
+  }
+  @media (min-width: 1200px) {
+    max-width: 25vw;
+  }
+  @media (min-width: 1600px) {
+    max-width: 20vw;
+  }
+  @media (min-width: 2400px) {
+    max-width: 16.66vw;
+  }
+`;
+
+const StyleBgCard = styled.div<{ backgroundUrl: string }>`
+  position: absolute;
+  aspect-ratio: 0.74;
+  width: 100%;
+  opacity: 0;
+  background-image: ${({ backgroundUrl }) => backgroundUrl};
+
   background-size: cover;
-  padding: 1.75rem;
-  max-width: 320px;
-  &:not(:hover) {
-    background-image: unset !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  &:hover {
+    opacity: 1;
   }
   transition: all 0.3s;
 `;
 
+const StyleCardContent = styled.div`
+  position: absolute;
+  padding: 30px;
+`;
+
 const StyledCardTitle = styled.div`
   font-size: 20px;
+  color: #494a4e;
+  line-height: 1.5;
+  padding-top: 5px;
 `;
 
 const StyledCardSubTitle = styled.div`
   text-transform: uppercase;
   font-size: 14px;
+  color: #494a4e;
 `;

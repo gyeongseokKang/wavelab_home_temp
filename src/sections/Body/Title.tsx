@@ -32,7 +32,7 @@ const Title = () => {
       <StyledSubTitle>
         Type Something Type Something Type Something Type Something Type Something <br></br>Wavelab
         audio post production
-        <StyledOpenDialogButton onClick={openNewOfficeDialog}> New Window </StyledOpenDialogButton>
+        <StyledOpenDialogButton onClick={openNewOfficeDialog}>New Window</StyledOpenDialogButton>
         Type SomeThing
       </StyledSubTitle>
 
@@ -66,7 +66,7 @@ const OfficeSlider = () => {
       centeredSlides={true}
       slidesPerView={3}
       coverflowEffect={{
-        rotate: 50,
+        rotate: 45,
         stretch: 0,
         depth: 100,
         modifier: 1,
@@ -100,15 +100,17 @@ const StyledTitle = styled.span`
 
 const StyledSubTitle = styled.span`
   font-size: 18px;
+  line-height: 1.67;
   color: #313131;
 `;
 
 const StyledDialog = styled(Dialog)`
   .MuiBackdrop-root {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.7);
   }
   .MuiPaper-root {
-    background-color: unset;
+    background-color: transparent;
+    background-image: unset;
     max-width: unset;
     box-shadow: none;
   }
@@ -116,25 +118,39 @@ const StyledDialog = styled(Dialog)`
 
 const StyledOpenDialogButton = styled.span`
   cursor: pointer;
-  text-decoration: underline solid #fc8422 2px;
+  margin-inline: 5px;
+  border-bottom: 2px solid #fc8422;
   &:hover {
-    text-decoration: underline solid #fc8422 3px;
+    border-bottom-width: 3px;
   }
-  transition: all 0.2s;
 `;
 
 const StyledSwiper = styled(Swiper)`
-  background-color: grey;
+  background-color: transparent;
   .swiper-wrapper {
-    width: 1050px;
+    width: min(80vw, 1600px);
+  }
+  .swiper-pagination-bullet {
+    background: white;
+    opacity: 1;
+  }
+  .swiper-pagination-bullet-active {
+    background: #0a84ff;
   }
 `;
 
 const StyledSwiperSlide = styled(SwiperSlide)`
+  background-color: #313131;
   img {
+    cursor: pointer;
     background-position: center;
     background-size: cover;
     display: block;
-    width: 350px;
+    width: min(80vw, 1600px);
+    aspect-ratio: 4/3;
+  }
+  .swiper-slide-active {
+    /* transition: ; */
+    /* background-color: #313131; */
   }
 `;
