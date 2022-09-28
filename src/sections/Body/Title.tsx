@@ -73,30 +73,35 @@ const SwiperLayout = ({ imageList }: { imageList: string[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<null | ThumbsMethods['swiper']>();
   console.log(thumbsSwiper);
   return (
-    <>
-      <StyledSwiper
-        loop={true}
-        slidesPerView={1}
-        pagination={true}
-        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-        modules={[Thumbs, Pagination, FreeMode]}
-      >
-        {imageList?.map((image, index) => {
-          return (
-            <StyledSwiperSlide key={`${image}_${index}`}>
-              <img src={image} />
-              <div>
+    <div>
+      <div>
+        <StyledSwiper
+          loop={true}
+          slidesPerView={1}
+          pagination={true}
+          navigation={true}
+          thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+          modules={[Thumbs, Pagination, FreeMode, Navigation]}
+        >
+          {imageList?.map((image, index) => {
+            return (
+              <StyledSwiperSlide key={`${image}_${index}`}>
+                <img src={image} />
                 {index === 0 ? (
-                  <StyledCenterText>타이틀</StyledCenterText>
+                  <StyledCenterText>
+                    <img src={'./public/slider_logo.svg'} />
+                  </StyledCenterText>
                 ) : (
-                  <StyledCornerText>dddddd</StyledCornerText>
+                  <StyledCornerText>
+                    <img src={'./public/slider_corner_logo.svg'} />
+                  </StyledCornerText>
                 )}
-              </div>
-            </StyledSwiperSlide>
-          );
-        })}
-      </StyledSwiper>
-      <StyledSwiper
+              </StyledSwiperSlide>
+            );
+          })}
+        </StyledSwiper>
+      </div>
+      <StyledThumbSwiper
         onSwiper={setThumbsSwiper}
         onInit={(swiper) => {
           setThumbsSwiper(swiper);
@@ -110,13 +115,13 @@ const SwiperLayout = ({ imageList }: { imageList: string[] }) => {
       >
         {imageList?.map((image) => {
           return (
-            <StyledSwiperSlide key={`${image}_thumbs`}>
+            <StyledThumbSwiperSlide key={`${image}_thumbs`}>
               <img src={image} />
-            </StyledSwiperSlide>
+            </StyledThumbSwiperSlide>
           );
         })}
-      </StyledSwiper>
-    </>
+      </StyledThumbSwiper>
+    </div>
   );
 };
 
@@ -139,6 +144,8 @@ const StyledSubTitle = styled.span`
 `;
 
 const StyledDialog = styled(Dialog)`
+  width: min(90vw, 500px);
+  margin: auto;
   .MuiBackdrop-root {
     background-color: rgba(0, 0, 0, 0.7);
   }
@@ -147,11 +154,12 @@ const StyledDialog = styled(Dialog)`
     background-image: unset;
     max-width: unset;
     box-shadow: none;
+    min-width: min(90vw, 1000px);
   }
 `;
 
 const StyledOpenDialogButton = styled.span`
-  cursor: url(https://picsum.photos/seed/picsum/50/50), pointer;
+  cursor: url('./public/office_cursor.svg'), pointer;
   padding-bottom: 1px;
   margin-inline: 5px;
   border-bottom: 2px solid #fc8422;
@@ -172,34 +180,103 @@ const StyledSwiper = styled(Swiper)`
   .swiper-pagination-bullet-active {
     background: #0a84ff;
   }
+  .swiper-button-next {
+    color: #373434;
+    background-color: white;
+    border-radius: 100%;
+    padding: 2rem;
+    @media (max-width: 720px) {
+      display: none;
+      padding: unset;
+    }
+  }
+  .swiper-button-prev {
+    color: #373434;
+    background-color: white;
+    border-radius: 100%;
+    padding: 2rem;
+    @media (max-width: 720px) {
+      display: none;
+      padding: unset;
+    }
+  }
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 1.5rem;
+  }
+`;
+
+const StyledThumbSwiper = styled(Swiper)`
+  background-color: transparent;
+  .swiper-wrapper {
+    width: min(50vw, 800px);
+  }
+  .swiper-slide-thumb-active {
+    opacity: 1 !important;
+  }
+  .swiper-slide {
+    opacity: 0.3;
+  }
 `;
 
 const StyledSwiperSlide = styled(SwiperSlide)`
-  background-color: #313131;
   position: relative;
-  img {
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  padding-inline: 5rem;
+  @media (max-width: 720px) {
+    padding: unset;
+  }
+  & > img {
+    background-color: #313131;
     cursor: pointer;
     background-position: center;
     background-size: cover;
     display: block;
-    width: min(50vw, 800px);
+    width: min(80vw, 800px);
     aspect-ratio: 4/3;
+  }
+`;
+
+const StyledThumbSwiperSlide = styled(SwiperSlide)`
+  user-select: none;
+  position: relative;
+  padding: 5px;
+  box-sizing: border-box;
+  & > img {
+    background-color: #313131;
+    cursor: pointer;
+    background-position: center;
+    background-size: cover;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4/2;
   }
 `;
 
 const StyledCenterText = styled.div`
   position: absolute;
-  top: 50%;
-  right: 50%;
-  left: 50%;
-  width: 100%;
-  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  & > img {
+    max-width: min(300px, 20vw);
+  }
 `;
 
 const StyledCornerText = styled.div`
   position: absolute;
-  top: 5%;
-  left: 85%;
-  width: 100%;
-  color: blue;
+  top: 0px;
+  right: 100px;
+  @media (max-width: 720px) {
+    right: 50px;
+  }
+  & > img {
+    max-width: 100px;
+  }
 `;

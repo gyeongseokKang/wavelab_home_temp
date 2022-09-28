@@ -1,0 +1,11 @@
+<svg width="211" height="148" viewBox="0 0 211 148" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h211v148H0z"/>
+        <text font-family="Pique" font-size="36" font-weight="800" fill="#F3FF00">
+                    <tspan x="74.549" y="63.355">NEW</tspan>
+                </text>
+        <text font-family="PadyakkeExpandedOne-Regular, Padyakke Expanded One" font-size="30" fill="#F3FF00">
+                    <tspan x="25.28" y="97.754">OFFICE!</tspan>
+                </text>
+    </g>
+</svg>

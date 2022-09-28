@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -10,6 +10,7 @@ const genreList = ['ALL', 'MOVIE', 'OTT', 'MUSIC'];
 const yearList = ['ALL', '2020', '2010', '2000', '1990'];
 
 const List = () => {
+  const inputToFocus = useRef(null);
   const [focusedItemIndex, setFocusedItemIndex] = useState(0);
   const { cardType } = useCardType();
 
@@ -23,6 +24,8 @@ const List = () => {
 
   const handleItem = (index: number) => {
     setFocusedItemIndex(index);
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+    // (inputToFocus.current as any)?.scrollTo(0, 0);
   };
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const List = () => {
   }, [cardType]);
 
   return (
-    <StyledListLayout>
+    <StyledListLayout ref={inputToFocus}>
       <ListHeader
         listByType={listByType}
         focusedItemIndex={focusedItemIndex}
@@ -133,9 +136,10 @@ const ListBody = ({ currentFilter }: ListBodyrProp) => {
 
 const StyledListLayout = styled.div`
   margin-top: 4rem;
+  margin-bottom: 8rem;
   position: relative;
   min-height: 100vh;
-  background-color: #84879e;
+  background-color: #efeeee;
   &::before {
     content: '';
     position: absolute;
@@ -144,19 +148,22 @@ const StyledListLayout = styled.div`
     width: 100%;
     height: 100%;
     background-position: center center;
-    background-size: 100% 90%;
+    background-size: 2048px 1200px;
     background-repeat: no-repeat;
-    background-image: url(https://picsum.photos/seed/picsum/500/500);
+    background-image: url('./public/bg.png');
     filter: blur(25px);
   }
 `;
 
 const StyledListHeader = styled(FlexBox)`
   padding: 2rem;
-  /* position: relative; */
   position: sticky;
   background-color: white;
   top: 100px;
+  @media (max-width: 720px) {
+    top: 75px;
+    padding: 1rem;
+  }
   z-index: 1;
 `;
 
@@ -189,7 +196,6 @@ const StyleCard = styled.div<{ backgroundUrl: string }>`
   width: 100%;
   box-shadow: 1px 0 0 0 #797979, 0 1px 0 0 #797979, 1px 1px 0 0 #797979, 1px 0 0 0 #797979 inset,
     0 1px 0 0 #797979 inset;
-
   max-width: 100vw;
 
   @media (min-width: 420px) {
@@ -215,7 +221,6 @@ const StyleBgCard = styled.div<{ backgroundUrl: string }>`
   width: 100%;
   opacity: 0;
   background-image: ${({ backgroundUrl }) => backgroundUrl};
-
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
