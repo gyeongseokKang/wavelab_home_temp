@@ -71,7 +71,7 @@ const OfficeSlider = () => {
 
 const SwiperLayout = ({ imageList }: { imageList: string[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<null | ThumbsMethods['swiper']>();
-  console.log(thumbsSwiper);
+
   return (
     <div>
       <div>

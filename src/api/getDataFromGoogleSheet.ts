@@ -47,15 +47,27 @@ export const getCardListDataFromGoogleSheet = async (): Promise<CardItem[] | und
 
   response.data.values.forEach((columnList: any, index: number) => {
     if (index !== 0) {
+      const poster_url =
+        columnList[3] !== '' ? convertGoogleDriveUrlToDirectImageUrl(columnList[3]) : columnList[4];
       const item = {
         title: columnList[0],
         genre: columnList[1],
         year: columnList[2],
-        poster_url: columnList[3],
+        poster_url: poster_url,
       };
       result.push(item);
     }
   });
 
   return result;
+};
+
+const convertGoogleDriveUrlToDirectImageUrl = (googleDriveUrl: string) => {
+  /**
+   * googleDriveUrl
+   * ex) https://drive.google.com/file/d/18ULySpWe-MtsdSshtPwswpENuGG_EDTF/view?usp=sharing
+   * imageId = 18ULySpWe-MtsdSshtPwswpENuGG_EDTF
+   */
+  const imageId = googleDriveUrl.replace('https://drive.google.com/file/d/', '').split('/')[0];
+  return `https://drive.google.com/uc?export=download&id=${imageId}`;
 };
