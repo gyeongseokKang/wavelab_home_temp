@@ -150,7 +150,7 @@ const StyledListLayout = styled.div`
     background-position: center center;
     background-size: 2048px 1200px;
     background-repeat: no-repeat;
-    background-image: url('./public/bg.png');
+    background-image: url('/bg.png');
     filter: blur(25px);
   }
 `;

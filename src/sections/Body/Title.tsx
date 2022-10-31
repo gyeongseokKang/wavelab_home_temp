@@ -159,7 +159,7 @@ const StyledDialog = styled(Dialog)`
 `;
 
 const StyledOpenDialogButton = styled.span`
-  cursor: url('./public/office_cursor.svg'), pointer;
+  cursor: url('/office_cursor.svg'), pointer;
   padding-bottom: 1px;
   margin-inline: 5px;
   border-bottom: 2px solid #fc8422;
