@@ -89,11 +89,11 @@ const SwiperLayout = ({ imageList }: { imageList: string[] }) => {
                 <img src={image} />
                 {index === 0 ? (
                   <StyledCenterText>
-                    <img src={'./public/slider_logo.svg'} />
+                    <img src={'/slider_logo.svg'} />
                   </StyledCenterText>
                 ) : (
                   <StyledCornerText>
-                    <img src={'./public/slider_corner_logo.svg'} />
+                    <img src={'/slider_corner_logo.svg'} />
                   </StyledCornerText>
                 )}
               </StyledSwiperSlide>
